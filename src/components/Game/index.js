@@ -88,6 +88,7 @@ class Game extends Component {
 
     /**
      * Создание поля.
+     * @return {number[][]}
      */
     createField() {
         const field = new Array(this.size);
@@ -128,6 +129,7 @@ class Game extends Component {
 
     /**
      * Делает один ход змейки.
+     * @return {?number[][]} - игровое поле после хода
      */
     move() {
         let field = this.state.field.slice();
@@ -177,7 +179,8 @@ class Game extends Component {
 
     /**
      * Возвращает координату следующей точки исходя из направления движения.
-     * @param {Point} point 
+     * @param {Point} point - Координата, относительно которой ведется поиск
+     * @return {Point}
      */
     getPointByDirection(point) {
         switch (this.direction) {
@@ -193,9 +196,12 @@ class Game extends Component {
     }
 
     /**
-     * @param {Array} field
-     * @param {number} part 
-     * @param {Point | null} from 
+     * Возвращает координату точки, значение которой равно part. Если from не передано, то поиск
+     * идет по всему массиву, иначе в точках вокруг from.
+     * @param {number[][]} field - Игровое поле
+     * @param {number} part - Значение ячейки, поиск которого осуществляется на игровом поле
+     * @param {?Point} from - Координата, относительно которой ведется поиск
+     * @return {Point}
      */
     getPointByPart(field, part, from = null) {
         if (from !== null) {
@@ -229,6 +235,11 @@ class Game extends Component {
         return null;
     }
 
+    /**
+     * Возвращает случайную координату точки с едой.
+     * @param {number[][]} field - Игровое поле
+     * @return {Point}
+     */
     getFoodPoint(field) {
         const points = [];
 
