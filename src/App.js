@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import Welcome from './components/Welcome';
+import Mode from './components/Mode';
+import Game from './components/Game';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <div className="App__content">
+                    <Router>
+                        <Switch>
+                            <Route exact path="/" component={Welcome} />
+                            <Route path="/mode" component={Mode} />
+                            <Route path="/game" component={Game} />
+                        </Switch>
+                    </Router>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
