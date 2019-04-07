@@ -1,6 +1,7 @@
-import React from 'react';
 import 'normalize.css';
 import './style.css';
+import React from 'react';
+import {Link} from 'react-router-dom'
 
 function Welcome(props) {
     return (
@@ -9,7 +10,12 @@ function Welcome(props) {
                 <span>Snake</span>
             </div>
             <div className="welcome__link">
-                <a href='/mode' className='welcome__button'>Играть</a>
+                <Link
+                    to='/mode'
+                    className='welcome__button'
+                >
+                    Играть
+                </Link>
             </div>
         </div>
     );
