@@ -21,13 +21,19 @@ class Game extends Component {
 
         this.onKeyUp = this.onKeyUp.bind(this);
         this.onOverlayClick = this.onOverlayClick.bind(this);
+        this.onScreenResize = this.onScreenResize.bind(this);
     }
 
     componentDidMount() {
-        this.overlay = document.querySelector('.Game__overlay');
+        this.container = document.querySelector('.Game');
+        this.overlay = this.container.querySelector('.Game__overlay');
+        this.svg = this.container.querySelector('.Game__svg');
 
         document.addEventListener('keyup', this.onKeyUp);
         this.overlay.addEventListener('click', this.onOverlayClick);
+        window.addEventListener('resize', this.onScreenResize);
+
+        this.setSvgSizes();
     }
 
     componentWillUnmount() {
@@ -245,6 +251,18 @@ class Game extends Component {
     }
 
     /**
+     * Устанавливает размер svg-полю в зависимости от размера родительского контейнера.
+     */
+    setSvgSizes() {
+        const {width, height} = this.container.getBoundingClientRect();
+        let size = Math.min(Math.floor(width), Math.floor(height));
+        // 90% от размера контейнера
+        size = Math.floor(size * 0.9);
+        this.svg.style.width = `${size}px`;
+        this.svg.style.height = `${size}px`;
+    }
+
+    /**
      * Обработчик события нажатия на кнопку.
      * @param {Object} e 
      */
@@ -283,6 +301,14 @@ class Game extends Component {
             this.overlay.classList.add('Game__overlay_hidden');
             this.start();
         }
+    }
+
+    /**
+     * Обработчик события ресайза окна браузера.
+     * @param {Object} e 
+     */
+    onScreenResize(e) {
+        this.setSvgSizes();
     }
 }
 
