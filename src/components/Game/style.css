@@ -32,6 +32,7 @@
     margin-bottom: 0;
     font-size: 48px;
     color: #ffffff;
+    user-select: none;
 }
 
 .Game__overlay_hidden {

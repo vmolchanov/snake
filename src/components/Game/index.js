@@ -101,8 +101,9 @@ class Game extends Component {
 
             if (!newField) {
                 clearInterval(interval);
-                alert('Вы програли!');
-                this.reset();
+                setTimeout(() => {
+                    this.reset();
+                }, 200);
                 return;
             }
 
