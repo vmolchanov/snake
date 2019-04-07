@@ -20,4 +20,5 @@
     border-left: 10px solid green;
     border-radius: 40px;
     background-color: rgb(133, 210, 154);
+    overflow: hidden;
 }

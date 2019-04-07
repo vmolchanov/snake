@@ -18,22 +18,28 @@ class Game extends Component {
             field: this.createField()
         };
 
-        this.start();
-
         this.onKeyUp = this.onKeyUp.bind(this);
+        this.onOverlayClick = this.onOverlayClick.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.overlay = document.querySelector('.Game__overlay');
+
         document.addEventListener('keyup', this.onKeyUp);
+        this.overlay.addEventListener('click', this.onOverlayClick);
     }
 
     componentWillUnmount() {
         document.removeEventListener('keyup', this.onKeyUp);
+        this.overlay.removeEventListener('click', this.onOverlayClick);
     }
 
     render() {
         return (
-            <div className="Game">
+            <div className='Game'>
+                <div className='Game__overlay'>
+                    <p className='Game__overlay-text'>Нажмите для начала игры</p>
+                </div>
                 <svg
                     className='Game__svg'
                     width='400'
@@ -55,35 +61,6 @@ class Game extends Component {
                 </svg>
             </div>
         );
-    }
-
-    /**
-     * Обработчик события нажатия на кнопку.
-     * @param {Object} e 
-     */
-    onKeyUp(e) {
-        switch (e.which) {
-            case EKey.ARROW_UP:
-                if (this.direction != EDirection.BOTTOM) {
-                    this.direction = EDirection.TOP;
-                }
-                break;
-            case EKey.ARROW_RIGHT:
-                if (this.direction != EDirection.LEFT) {
-                    this.direction = EDirection.RIGHT;
-                }
-                break;
-            case EKey.ARROW_DOWN:
-                if (this.direction != EDirection.TOP) {
-                    this.direction = EDirection.BOTTOM;
-                }
-                break;
-            case EKey.ARROW_LEFT:
-                if (this.direction != EDirection.RIGHT) {
-                    this.direction = EDirection.LEFT;
-                }
-                break;
-        }
     }
 
     /**
@@ -118,6 +95,7 @@ class Game extends Component {
             if (!newField) {
                 clearInterval(interval);
                 alert('Вы програли!');
+                this.reset();
                 return;
             }
 
@@ -125,6 +103,17 @@ class Game extends Component {
                 field: newField
             });
         }, 500);
+    }
+
+    /**
+     * Устанавливает начальное игровое состояние.
+     */
+    reset() {
+        this.direction = EDirection.RIGHT;
+        this.setState({
+            field: this.createField()
+        });
+        this.overlay.classList.remove('Game__overlay_hidden');
     }
 
     /**
@@ -252,6 +241,47 @@ class Game extends Component {
         });
 
         return points[Math.floor(Math.random() * (points.length - 1))];
+    }
+
+    /**
+     * Обработчик события нажатия на кнопку.
+     * @param {Object} e 
+     */
+    onKeyUp(e) {
+        switch (e.which) {
+            case EKey.ARROW_UP:
+                if (this.direction != EDirection.BOTTOM) {
+                    this.direction = EDirection.TOP;
+                }
+                break;
+            case EKey.ARROW_RIGHT:
+                if (this.direction != EDirection.LEFT) {
+                    this.direction = EDirection.RIGHT;
+                }
+                break;
+            case EKey.ARROW_DOWN:
+                if (this.direction != EDirection.TOP) {
+                    this.direction = EDirection.BOTTOM;
+                }
+                break;
+            case EKey.ARROW_LEFT:
+                if (this.direction != EDirection.RIGHT) {
+                    this.direction = EDirection.LEFT;
+                }
+                break;
+        }
+    }
+
+    /**
+     * Обработчик события клика на оверлей.
+     * @param {Object} e 
+     */
+    onOverlayClick(e) {
+        e.preventDefault();
+        if (!this.overlay.classList.contains('Game__overlay_hidden')) {
+            this.overlay.classList.add('Game__overlay_hidden');
+            this.start();
+        }
     }
 }
 
