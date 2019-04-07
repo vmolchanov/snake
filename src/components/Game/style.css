@@ -23,6 +23,10 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.Game__overlay:hover {
+    cursor: pointer;
+}
+
 .Game__overlay-text {
     margin-top: 0;
     margin-bottom: 0;
