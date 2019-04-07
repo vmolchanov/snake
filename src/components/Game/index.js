@@ -1,5 +1,6 @@
 import './style.css';
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import FieldRow from '../FieldRow';
 import EDirection from '../../enums/direction';
 import EKey from '../../enums/key';
@@ -102,7 +103,7 @@ class Game extends Component {
             this.setState({
                 field: newField
             });
-        }, 500);
+        }, this.props.mode);
     }
 
     /**
@@ -285,4 +286,9 @@ class Game extends Component {
     }
 }
 
-export default Game;
+export default connect(
+    (state) => ({
+        mode: state.mode
+    }),
+    null
+)(Game);

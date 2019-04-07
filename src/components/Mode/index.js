@@ -48,7 +48,7 @@ class Mode extends Component {
 }
 
 export default connect(
-    (state) => ({}),
+    null,
     (dispatch) => ({
         onModeChoose: (mode) => {
             dispatch({
