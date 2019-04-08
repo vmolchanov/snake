@@ -30,7 +30,8 @@
 .Game__overlay-text {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 48px;
+    font-family: 'Press Start 2P', 'Arial', sans-serif;
+    font-size: 36px;
     color: #ffffff;
     user-select: none;
 }
