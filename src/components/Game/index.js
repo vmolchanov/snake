@@ -5,6 +5,7 @@ import FieldRow from '../FieldRow';
 import EDirection from '../../enums/direction';
 import EKey from '../../enums/key';
 import Point from '../../utils/point';
+import {Redirect} from 'react-router-dom';
 
 class Game extends Component {
     constructor(props) {
@@ -41,9 +42,19 @@ class Game extends Component {
         this.overlay.removeEventListener('click', this.onOverlayClick);
     }
 
+    /**
+     * Проверяет, установлен ли в сторе mode. Если нет, то происходит редирект на главную страницу.
+     */
+    redirect() {
+        return this.props.mode === 0 ?
+            <Redirect to='/' /> :
+            null;
+    }
+
     render() {
         return (
             <div className='Game'>
+                {this.redirect()}
                 <div className='Game__overlay'>
                     <p className='Game__overlay-text'>Нажмите для начала игры</p>
                 </div>
