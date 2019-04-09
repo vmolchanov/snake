@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 import FieldRow from '../FieldRow';
 import EDirection from '../../enums/direction';
 import EKey from '../../enums/key';
+import EGesture from '../../enums/gesture';
 import Point from '../../utils/point';
 import {Redirect} from 'react-router-dom';
+import * as Hammer from 'hammerjs';
 
 class Game extends Component {
     constructor(props) {
@@ -23,6 +25,7 @@ class Game extends Component {
         this.onKeyUp = this.onKeyUp.bind(this);
         this.onOverlayClick = this.onOverlayClick.bind(this);
         this.onScreenResize = this.onScreenResize.bind(this);
+        this.onContainerSwipe = this.onContainerSwipe.bind(this);
     }
 
     componentDidMount() {
@@ -34,12 +37,20 @@ class Game extends Component {
         this.overlay.addEventListener('click', this.onOverlayClick);
         window.addEventListener('resize', this.onScreenResize);
 
+        const swipes = ['swipeup', 'swiperight', 'swipedown', 'swipeleft'];
+        const hammertime = new Hammer(this.container);
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        swipes.forEach((eventName) => 
+            hammertime.on(eventName, this.onContainerSwipe)
+        );
+
         this.setSvgSizes();
     }
 
     componentWillUnmount() {
         document.removeEventListener('keyup', this.onKeyUp);
         this.overlay.removeEventListener('click', this.onOverlayClick);
+        window.removeEventListener('resize', this.onScreenResize);
     }
 
     /**
@@ -275,30 +286,72 @@ class Game extends Component {
     }
 
     /**
+     * Устанавливает направление движения змейки.
+     * @param {EDirection} direction 
+     */
+    setDirection(direction) {
+        switch (direction) {
+            case EDirection.TOP:
+                if (this.direction != EDirection.BOTTOM) {
+                    this.direction = EDirection.TOP;
+                }
+                break;
+            case EDirection.RIGHT:
+                if (this.direction != EDirection.LEFT) {
+                    this.direction = EDirection.RIGHT;
+                }
+                break;
+            case EDirection.BOTTOM:
+                if (this.direction != EDirection.TOP) {
+                    this.direction = EDirection.BOTTOM;
+                }
+                break;
+            case EDirection.LEFT:
+                if (this.direction != EDirection.RIGHT) {
+                    this.direction = EDirection.LEFT;
+                }
+                break;
+        }
+    }
+
+    /**
      * Обработчик события нажатия на кнопку.
      * @param {Object} e 
      */
     onKeyUp(e) {
         switch (e.which) {
             case EKey.ARROW_UP:
-                if (this.direction != EDirection.BOTTOM) {
-                    this.direction = EDirection.TOP;
-                }
+                this.setDirection(EDirection.TOP);
                 break;
             case EKey.ARROW_RIGHT:
-                if (this.direction != EDirection.LEFT) {
-                    this.direction = EDirection.RIGHT;
-                }
+                this.setDirection(EDirection.RIGHT);
                 break;
             case EKey.ARROW_DOWN:
-                if (this.direction != EDirection.TOP) {
-                    this.direction = EDirection.BOTTOM;
-                }
+                this.setDirection(EDirection.BOTTOM);
                 break;
             case EKey.ARROW_LEFT:
-                if (this.direction != EDirection.RIGHT) {
-                    this.direction = EDirection.LEFT;
-                }
+                this.setDirection(EDirection.LEFT);
+                break;
+        }
+    }
+
+    /**
+     * Обработчик события свайпа.
+     * @param {Object} e 
+     */
+    onContainerSwipe(e) {
+        switch (e.type) {
+            case EGesture.SWIPE_UP:
+                this.setDirection(EDirection.TOP);
+                break;
+            case EGesture.SWIPE_RIGHT:
+                this.setDirection(EDirection.RIGHT);
+                break;
+            case EGesture.SWIPE_DOWN:
+                this.setDirection(EDirection.BOTTOM);
+                break;
+            case EGesture.SWIPE_LEFT:
+                this.setDirection(EDirection.LEFT);
                 break;
         }
     }
