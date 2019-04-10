@@ -8,6 +8,8 @@ import EGesture from '../../enums/gesture';
 import Point from '../../utils/point';
 import {Redirect} from 'react-router-dom';
 import * as Hammer from 'hammerjs';
+import swipeImage from './swipe.svg';
+import keysImage from './keys.svg';
 
 class Game extends Component {
     constructor(props) {
@@ -17,6 +19,7 @@ class Game extends Component {
         this.direction = EDirection.RIGHT;
         this.foodCell = -1;
         this.emptyCell = 0;
+        this.isFirstShow = true;
 
         this.state = {
             field: this.createField()
@@ -29,6 +32,7 @@ class Game extends Component {
     }
 
     componentDidMount() {
+        this.isFirstShow = false;
         this.container = document.querySelector('.Game');
         this.overlay = this.container.querySelector('.Game__overlay');
         this.svg = this.container.querySelector('.Game__svg');
@@ -63,11 +67,24 @@ class Game extends Component {
     }
 
     render() {
+        const controlClassNames = [
+            'Game__control-list',
+            `${!this.isFirstShow ? 'Game__control-list_hidden' : ''}`
+        ].join(' ');
+        
         return (
             <div className='Game'>
                 {this.redirect()}
                 <div className='Game__overlay'>
                     <p className='Game__overlay-text'>Нажмите для начала игры</p>
+                    <ul className={controlClassNames}>
+                        <li className="Game__control-item">
+                            <img src={keysImage} className="Game__control-image" />
+                        </li>
+                        <li className="Game__control-item">
+                            <img src={swipeImage} className="Game__control-image" />
+                        </li>
+                    </ul>
                 </div>
                 <svg
                     className='Game__svg'

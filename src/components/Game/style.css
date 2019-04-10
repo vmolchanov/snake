@@ -40,7 +40,8 @@
     user-select: none;
 }
 
-.Game__overlay_hidden {
+.Game__overlay_hidden,
+.Game__control-list_hidden {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -49,6 +50,25 @@
     border: 0;  
     overflow: hidden;
     clip: rect(0 0 0 0);
+}
+
+.Game__control-list {
+    position: absolute;
+    top: 10px;
+    display: flex;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.Game__control-image {
+    width: 120px;
+    height: 150px;
+}
+
+.Game__control-item {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 @media (max-width: 1280px) {
