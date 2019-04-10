@@ -64,6 +64,7 @@
 .Game__control-image {
     width: 120px;
     height: 150px;
+    animation: flash linear 1s infinite;
 }
 
 .Game__control-item {
@@ -87,4 +88,10 @@
     .Game__overlay-text {
         font-size: 24px;
     }
+}
+
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .6; } 
+	100% { opacity: 1; }
 }
