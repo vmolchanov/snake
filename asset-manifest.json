@@ -1,5 +1,5 @@
 {
-  "main.css": "/snake/static/css/main.875b1d47.chunk.css",
+  "main.css": "/snake/static/css/main.a45471f4.chunk.css",
   "main.js": "/snake/static/js/main.529ba57c.chunk.js",
   "main.js.map": "/snake/static/js/main.529ba57c.chunk.js.map",
   "runtime~main.js": "/snake/static/js/runtime~main.ccc81976.js",
@@ -8,10 +8,10 @@
   "static/js/2.b71bd5c2.chunk.js": "/snake/static/js/2.b71bd5c2.chunk.js",
   "static/js/2.b71bd5c2.chunk.js.map": "/snake/static/js/2.b71bd5c2.chunk.js.map",
   "index.html": "/snake/index.html",
-  "precache-manifest.12831b9cab779a406d1fb48c38d3bfeb.js": "/snake/precache-manifest.12831b9cab779a406d1fb48c38d3bfeb.js",
+  "precache-manifest.12a506da6dbcf3d8a0f90c0ac713dc33.js": "/snake/precache-manifest.12a506da6dbcf3d8a0f90c0ac713dc33.js",
   "service-worker.js": "/snake/service-worker.js",
   "static/css/2.fd21b938.chunk.css.map": "/snake/static/css/2.fd21b938.chunk.css.map",
-  "static/css/main.875b1d47.chunk.css.map": "/snake/static/css/main.875b1d47.chunk.css.map",
+  "static/css/main.a45471f4.chunk.css.map": "/snake/static/css/main.a45471f4.chunk.css.map",
   "static/media/keys.svg": "/snake/static/media/keys.590eca93.svg",
   "static/media/swipe.svg": "/snake/static/media/swipe.196428d2.svg"
 }
