@@ -9,9 +9,9 @@ export default function mode(state = initialState, action) {
                 case EMode.UNDEFINED:
                     return 0;
                 case EMode.EASY:
-                    return 1000;
+                    return 300;
                 case EMode.HARD:
-                    return 500;
+                    return 180;
             }
         default:
             return state;
