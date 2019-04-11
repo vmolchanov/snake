@@ -1,4 +1,7 @@
 import React from 'react';
+import Point from '../../utils/point';
+import Size from '../../utils/size';
+import PropTypes from 'prop-types';
 
 function FieldCell(props) {
     const {style, coord, size} = props;
@@ -13,5 +16,11 @@ function FieldCell(props) {
         />
     );
 }
+
+FieldCell.propTypes = {
+    style: PropTypes.object,
+    coord: PropTypes.instanceOf(Point),
+    size: PropTypes.instanceOf(Size)
+};
 
 export default FieldCell;

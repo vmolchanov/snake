@@ -2,6 +2,7 @@ import React from 'react';
 import FieldCell from '../FieldCell';
 import Point from '../../utils/point';
 import Size from '../../utils/size';
+import PropTypes from 'prop-types';
 
 function FieldRow(props) {
     const CELL_SIZE = 10;
@@ -37,5 +38,10 @@ function FieldRow(props) {
         </g>
     );
 }
+
+FieldRow.propTypes = {
+    row: PropTypes.array,
+    rowIndex: PropTypes.number
+};
 
 export default FieldRow;

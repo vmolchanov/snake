@@ -10,6 +10,7 @@ import {Redirect} from 'react-router-dom';
 import * as Hammer from 'hammerjs';
 import swipeImage from './swipe.svg';
 import keysImage from './keys.svg';
+import PropTypes from 'prop-types';
 
 class Game extends Component {
     constructor(props) {
@@ -393,6 +394,10 @@ class Game extends Component {
         this.setSvgSizes();
     }
 }
+
+Game.propTypes = {
+    mode: PropTypes.number
+};
 
 export default connect(
     (state) => ({
