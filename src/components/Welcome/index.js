@@ -1,9 +1,8 @@
-import 'normalize.css';
 import './style.css';
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-function Welcome(props) {
+const Welcome = (props) => {
     return (
         <div className='welcome'>
             <div className="welcome__logo">

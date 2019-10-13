@@ -13,28 +13,24 @@ function FieldRow(props) {
         fill: '#000000'
     };
     
-    const {row, rowIndex} = props;
+    const {
+        row,
+        rowIndex
+    } = props;
 
     return (
         <g className='FieldRow'>
-            {
-                row.map((cell, cellIndex) => {
-                    return (
-                        <FieldCell
-                            key={cellIndex}
-                            style={cell === 0 ? EMPTY_CELL_STYLE : FILL_CELL_STYLE}
-                            coord={new Point(
-                                cellIndex * CELL_SIZE + cellIndex * 3 + 14,
-                                rowIndex * CELL_SIZE + rowIndex * 3 + 14
-                            )}
-                            size={new Size(
-                                CELL_SIZE,
-                                CELL_SIZE
-                            )}
-                        />
-                    )
-                })
-            }
+            {row.map((cell, cellIndex) => (
+                <FieldCell
+                    key={cellIndex}
+                    style={cell === 0 ? EMPTY_CELL_STYLE : FILL_CELL_STYLE}
+                    coord={new Point(
+                        cellIndex * CELL_SIZE + cellIndex * 3 + 14,
+                        rowIndex * CELL_SIZE + rowIndex * 3 + 14
+                    )}
+                    size={new Size(CELL_SIZE, CELL_SIZE)}
+                />
+            ))}
         </g>
     );
 }
