@@ -1,60 +1,50 @@
 import './style.css';
-import  React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import EMode from '../../enums/mode';
 import {Link} from 'react-router-dom';
+import EMode from '../../enums/mode';
 
-class Mode extends Component {
-    constructor(props) {
-        super(props);
-    }
+import {setMode} from '../../reducers/mode';
 
-    render() {
-        return (
-            <div className='Mode'>
-                <ul className='Mode__list'>
-                    <li className='Mode__item'>
+const Mode = (props) => {
+    const modes = [
+        {
+            type: EMode.EASY,
+            text: 'Легко'
+        },
+        {
+            type: EMode.HARD,
+            text: 'Сложно'
+        }
+    ];
+
+    return (
+        <div className='Mode'>
+            <ul className='Mode__list'>
+                {modes.map((mode, index) => (
+                    <li className='Mode__item' key={index}>
                         <Link
                             to='/game'
                             className='Mode__link'
-                            onClick={this.onLinkClick.bind(this)}
-                            data-mode={EMode.EASY}
+                            onClick={(e) => props.onModeChoose(e.target.dataset.mode)}
+                            data-mode={mode.type}
                         >
-                            Легко
+                            {mode.text}
                         </Link>
                     </li>
-                    <li className='Mode__item'>
-                        <Link
-                            to='/game'
-                            className='Mode__link'
-                            onClick={this.onLinkClick.bind(this)}
-                            data-mode={EMode.HARD}
-                        >
-                            Сложно
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-        );
-    }
+                ))}
+            </ul>
+        </div>
+    );
+};
 
-    /**
-     * Обработчик события клика на ссылку.
-     * @param {Object} e
-     */
-    onLinkClick(e) {
-        this.props.onModeChoose(e.target.dataset.mode);
+const mapDispatchToProps = (dispatch) => ({
+    onModeChoose: (mode) => {
+        dispatch(setMode(mode));
     }
-}
+});
 
 export default connect(
     null,
-    (dispatch) => ({
-        onModeChoose: (mode) => {
-            dispatch({
-                type: 'SET_MODE',
-                payload: mode
-            });
-        }
-    })
+    mapDispatchToProps
 )(Mode);

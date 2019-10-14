@@ -4,7 +4,11 @@ import Size from '../../utils/size';
 import PropTypes from 'prop-types';
 
 function FieldCell(props) {
-    const {style, coord, size} = props;
+    const {
+        style,
+        coord,
+        size
+    } = props;
 
     return (
         <rect
