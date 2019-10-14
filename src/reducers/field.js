@@ -80,10 +80,10 @@ const getPointByPart = (field, part, from = null) => {
         ];
 
         for (let i = 0; i < coords.length; i++) {
-            const coord = coords[i];
-            const isInField = coord.x >= 0 && coord.x < SIZE && coord.y >= 0 && coord.y < SIZE;
-            if (isInField && field[coord.y][coord.x] === part) {
-                return coord;
+            const {x, y} = coords[i];
+            const isInField = (x >= 0 && x < SIZE && y >= 0 && y < SIZE);
+            if (isInField && field[y][x] === part) {
+                return coords[i];
             }
         }
 
@@ -102,45 +102,41 @@ const getPointByPart = (field, part, from = null) => {
 
 const move = (storeField, direction) => {
     let field = storeField.slice();
-    let currentPartPoint = getPointByPart(field, 1);
-    let nextPoint = getPointByDirection(currentPartPoint, direction);
-    let currentPart = 1;
+    const snakeStartPoint = getPointByPart(field, 1);
+    let nextPoint = getPointByDirection(snakeStartPoint, direction);
+    const {x: nextX, y: nextY} = nextPoint;
 
-    // Выход за пределы поля
-    if (
-        nextPoint.x < 0 ||
-        nextPoint.x >= SIZE ||
-        nextPoint.y < 0 ||
-        nextPoint.y >= SIZE
-    ) {
+    const isInField = nextX >= 0 && nextX < SIZE && nextY >= 0 && nextY < SIZE;
+    if (!isInField) {
         throw new Error('Выход за пределы поля');
     }
 
-    // Врезание в змейку
-    if (field[nextPoint.y][nextPoint.x] > EMPTY_CELL) {
+    if (field[nextY][nextX] > EMPTY_CELL) {
         throw new Error('Врезание в змейку');
     }
 
-    // Еда
-    if (field[nextPoint.y][nextPoint.x] === FOOD_CELL) {
+    if (field[nextY][nextX] === FOOD_CELL) {
         field = field.map((row) =>
             row.map((cell) => 
                 cell > 0 ? ++cell : cell
             )
         );
-        field[nextPoint.y][nextPoint.x] = 1;
-        
-        const foodPoint = getFoodPoint(field);
-        field[foodPoint.y][foodPoint.x] = FOOD_CELL;
+        field[nextY][nextX] = 1;
+
+        const {x, y} = getFoodPoint(field);
+        field[y][x] = FOOD_CELL;
 
         return field;
     }
 
-    while (currentPartPoint !== null) {
+    let currentPoint = snakeStartPoint;
+    let currentPart = 1;
+
+    while (currentPoint !== null) {
         field[nextPoint.y][nextPoint.x] = currentPart;
-        field[currentPartPoint.y][currentPartPoint.x] = EMPTY_CELL;
-        nextPoint = currentPartPoint;
-        currentPartPoint = getPointByPart(field, ++currentPart, nextPoint);
+        field[currentPoint.y][currentPoint.x] = EMPTY_CELL;
+        nextPoint = currentPoint;
+        currentPoint = getPointByPart(field, ++currentPart, nextPoint);
     }
 
     return field;

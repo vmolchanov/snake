@@ -1,8 +1,8 @@
 import './style.css';
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import EDirection from '../../enums/direction';
 import EKey from '../../enums/key';
 import EGesture from '../../enums/gesture';
@@ -27,33 +27,33 @@ class Game extends Component {
         this.overlayRef = React.createRef();
         this.svgRef = React.createRef();
 
-        this.onKeyUp = this.onKeyUp.bind(this);
-        this.onOverlayClick = this.onOverlayClick.bind(this);
-        this.onScreenResize = this.onScreenResize.bind(this);
-        this.onContainerSwipe = this.onContainerSwipe.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.handleOverlayClick = this.handleOverlayClick.bind(this);
+        this.handleScreenResize = this.handleScreenResize.bind(this);
+        this.handleContainerSwipe = this.handleContainerSwipe.bind(this);
     }
 
     componentDidMount() {
         this.isFirstShow = false;
 
-        document.addEventListener('keyup', this.onKeyUp);
-        window.addEventListener('resize', this.onScreenResize);
+        document.addEventListener('keyup', this.handleKeyUp);
+        window.addEventListener('resize', this.handleScreenResize);
 
         const swipes = ['swipeup', 'swiperight', 'swipedown', 'swipeleft'];
         const hammertime = new Hammer(this.containerRef.current);
         hammertime.get('swipe').set({
             direction: Hammer.DIRECTION_ALL
         });
-        swipes.forEach((eventName) => 
-            hammertime.on(eventName, this.onContainerSwipe)
+        swipes.forEach((eventName) =>
+            hammertime.on(eventName, this.handleContainerSwipe)
         );
 
         this.setSvgSizes();
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keyup', this.onKeyUp);
-        window.removeEventListener('resize', this.onScreenResize);
+        document.removeEventListener('keyup', this.handleKeyUp);
+        window.removeEventListener('resize', this.handleScreenResize);
     }
 
     render() {
@@ -61,7 +61,7 @@ class Game extends Component {
             'Game__control-list',
             `${!this.isFirstShow ? 'Game__control-list_hidden' : ''}`
         ].join(' ');
-        
+
         const controlImages = [
             {
                 src: keysImage,
@@ -72,19 +72,23 @@ class Game extends Component {
                 alt: 'Жесты'
             }
         ];
-        
+
         return (
             <div className='Game' ref={this.containerRef}>
                 {this.props.mode === 0 ? <Redirect to='/' /> : null}
-                <div className='Game__overlay' onClick={this.onOverlayClick} ref={this.overlayRef}>
+                <div
+                    className='Game__overlay'
+                    onClick={this.handleOverlayClick}
+                    ref={this.overlayRef}
+                >
                     <p className='Game__overlay-text'>Нажмите для начала игры</p>
                     <ul className={controlClassNames}>
-                        {controlImages.map((controlImage, index) => (
+                        {controlImages.map(({src, alt}, index) => (
                             <li className="Game__control-item" key={index}>
                                 <img
-                                    src={controlImage.src}
+                                    src={src}
                                     className="Game__control-image"
-                                    alt={controlImage.alt}
+                                    alt={alt}
                                 />
                             </li>
                         ))}
@@ -98,9 +102,8 @@ class Game extends Component {
                     xmlns='http://www.w3.org/2000/svg'
                     ref={this.svgRef}
                 >
-                    {/* {this.state.field.map((row, index) => ( */}
                     {this.props.field.map((row, index) => (
-                        <FieldRow 
+                        <FieldRow
                             row={row}
                             rowIndex={index}
                             key={index}
@@ -127,7 +130,7 @@ class Game extends Component {
         const interval = setInterval(() => {
             try {
                 this.props.onMove();
-            } catch(err) {
+            } catch (err) {
                 clearInterval(interval);
                 this.showOverlay();
             }
@@ -138,7 +141,7 @@ class Game extends Component {
      * Устанавливает размер svg-полю в зависимости от размера родительского контейнера.
      */
     setSvgSizes() {
-        const {width, height} = this.containerRef.current.getBoundingClientRect();
+        const { width, height } = this.containerRef.current.getBoundingClientRect();
         let size = Math.min(Math.floor(width), Math.floor(height));
         // 90% от размера контейнера
         size = Math.floor(size * 0.9);
@@ -146,74 +149,53 @@ class Game extends Component {
         this.svgRef.current.style.height = `${size}px`;
     }
 
-    /**
-     * Обработчик события нажатия на кнопку.
-     * @param {Object} e 
-     */
-    onKeyUp(e) {
+    handleKeyUp(e) {
         switch (e.which) {
             case EKey.ARROW_UP:
-                this.props.onDirectionChange(EDirection.TOP);
-                break;
+                return this.props.onDirectionChange(EDirection.TOP);
             case EKey.ARROW_RIGHT:
-                this.props.onDirectionChange(EDirection.RIGHT);
-                break;
+                return this.props.onDirectionChange(EDirection.RIGHT);
             case EKey.ARROW_DOWN:
-                this.props.onDirectionChange(EDirection.BOTTOM);
-                break;
+                return this.props.onDirectionChange(EDirection.BOTTOM);
             case EKey.ARROW_LEFT:
-                this.props.onDirectionChange(EDirection.LEFT);
-                break;
+                return this.props.onDirectionChange(EDirection.LEFT);
             default:
-                break;
+                return;
         }
     }
 
-    /**
-     * Обработчик события свайпа.
-     * @param {Object} e 
-     */
-    onContainerSwipe(e) {
+    handleContainerSwipe(e) {
         switch (e.type) {
             case EGesture.SWIPE_UP:
-                this.props.onDirectionChange(EDirection.TOP);
-                break;
+                return this.props.onDirectionChange(EDirection.TOP);
             case EGesture.SWIPE_RIGHT:
-                this.props.onDirectionChange(EDirection.RIGHT);
-                break;
+                return this.props.onDirectionChange(EDirection.RIGHT);
             case EGesture.SWIPE_DOWN:
-                this.props.onDirectionChange(EDirection.BOTTOM);
-                break;
+                return this.props.onDirectionChange(EDirection.BOTTOM);
             case EGesture.SWIPE_LEFT:
-                this.props.onDirectionChange(EDirection.LEFT);
-                break;
+                return this.props.onDirectionChange(EDirection.LEFT);
             default:
-                break;
+                return;
         }
     }
 
-    /**
-     * Обработчик события клика на оверлей.
-     * @param {Object} e 
-     */
-    onOverlayClick(e) {
+    handleOverlayClick(e) {
         e.preventDefault();
         this.hideOverlay();
         this.start();
     }
 
-    /**
-     * Обработчик события ресайза окна браузера.
-     * @param {Object} e 
-     */
-    onScreenResize(e) {
+    handleScreenResize(e) {
         this.setSvgSizes();
     }
 }
 
 Game.propTypes = {
     mode: PropTypes.number,
-    field: PropTypes.array
+    field: PropTypes.array,
+    onDirectionChange: PropTypes.func.isRequired,
+    onMove: PropTypes.func.isRequired,
+    onStartGame: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
