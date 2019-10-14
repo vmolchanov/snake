@@ -35,11 +35,6 @@ const createField = () => {
     return field;
 };
 
-const initialState = {
-    field: createEmptyField(),
-    direction: EDirection.RIGHT
-};
-
 const getDirection = (currentDirection, newDirection) => {
     switch (currentDirection) {
         case EDirection.TOP:
@@ -140,6 +135,11 @@ const move = (storeField, direction) => {
     }
 
     return field;
+};
+
+const initialState = {
+    field: createEmptyField(),
+    direction: EDirection.RIGHT
 };
 
 const reducer = (state = initialState, action) => {
