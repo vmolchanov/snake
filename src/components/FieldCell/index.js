@@ -1,6 +1,6 @@
 import React from 'react';
-import Point from '../../utils/point';
-import Size from '../../utils/size';
+import Point from '../../utils/point/point';
+import Size from '../../utils/size/size';
 import PropTypes from 'prop-types';
 
 function FieldCell(props) {

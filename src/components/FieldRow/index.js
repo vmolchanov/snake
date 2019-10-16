@@ -1,7 +1,7 @@
 import React from 'react';
 import FieldCell from '../FieldCell';
-import Point from '../../utils/point';
-import Size from '../../utils/size';
+import Point from '../../utils/point/point';
+import Size from '../../utils/size/size';
 import PropTypes from 'prop-types';
 
 function FieldRow(props) {
