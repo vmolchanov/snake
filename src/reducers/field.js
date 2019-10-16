@@ -1,11 +1,10 @@
 import EDirection from '../enums/direction';
-
-import Field from '../utils/field';
+import Field from '../utils/field/field';
 
 const SIZE = 10;
 
 const getDirection = (currentDirection, newDirection) => {
-    switch (currentDirection) {
+    switch (newDirection) {
         case EDirection.TOP:
             return (currentDirection === EDirection.BOTTOM) ? currentDirection : newDirection;
         case EDirection.BOTTOM:

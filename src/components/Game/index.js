@@ -16,7 +16,7 @@ import {
     changeDirection,
     resetGame
 } from '../../reducers/field';
-import Field from '../../utils/field';
+import Field from '../../utils/field/field';
 
 class Game extends Component {
     constructor(props) {

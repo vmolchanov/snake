@@ -1,6 +1,6 @@
-import {random} from './random';
-import Point from './point';
-import EDirection from '../enums/direction';
+import {random} from '../random';
+import Point from '../point';
+import EDirection from '../../enums/direction';
 
 class Field {
     constructor(size, field = null) {
