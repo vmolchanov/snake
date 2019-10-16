@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import EMode from '../../enums/mode';
 
-import {setMode} from '../../reducers/mode';
+import {setMode} from '../../reducers/mode/mode';
 
 const Mode = (props) => {
     const modes = [

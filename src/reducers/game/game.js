@@ -1,5 +1,5 @@
-import EDirection from '../enums/direction';
-import Field from '../utils/field/field';
+import EDirection from '../../enums/direction';
+import Field from '../../utils/field/field';
 
 const SIZE = 10;
 

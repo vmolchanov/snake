@@ -1,4 +1,4 @@
-import EDirection from '../enums/direction';
+import EDirection from '../../enums/direction';
 import reducer from './game';
 import {
     getDirection,
@@ -6,7 +6,7 @@ import {
     changeDirection,
     initialState
 } from './game';
-import Field from '../utils/field/field';
+import Field from '../../utils/field/field';
 
 describe('Изменение направления', () => {
     it('Поворот направо и налево', () => {

@@ -15,7 +15,7 @@ import {
     moveSnake,
     changeDirection,
     resetGame
-} from '../../reducers/game';
+} from '../../reducers/game/game';
 import Field from '../../utils/field/field';
 
 class Game extends Component {
