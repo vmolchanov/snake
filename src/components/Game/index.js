@@ -204,7 +204,7 @@ Game.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
     ...ownProps,
     mode: state.mode,
-    field: state.field.field
+    field: state.game.field
 });
 
 const mapDispatchToProps = (dispatch) => ({
