@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
 import mode from './mode';
-import field from './field';
+import game from './game';
 
 export default combineReducers({
     mode,
-    field
+    game
 });

@@ -1,5 +1,5 @@
-import {random} from '../random';
-import Point from '../point';
+import {random} from '../random/random';
+import Point from '../point/point';
 import EDirection from '../../enums/direction';
 
 class Field {
