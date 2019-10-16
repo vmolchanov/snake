@@ -67,4 +67,6 @@ export const resetGame = () => {
     };
 };
 
+export {getDirection, initialState};
+
 export default reducer;
