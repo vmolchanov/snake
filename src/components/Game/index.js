@@ -16,6 +16,7 @@ import {
     changeDirection,
     resetGame
 } from '../../reducers/field';
+import Field from '../../utils/field';
 
 class Game extends Component {
     constructor(props) {
@@ -73,6 +74,8 @@ class Game extends Component {
             }
         ];
 
+        const {field} = this.props.field;
+
         return (
             <div className='Game' ref={this.containerRef}>
                 {this.props.mode === 0 ? <Redirect to='/' /> : null}
@@ -102,7 +105,7 @@ class Game extends Component {
                     xmlns='http://www.w3.org/2000/svg'
                     ref={this.svgRef}
                 >
-                    {this.props.field.map((row, index) => (
+                    {field.map((row, index) => (
                         <FieldRow
                             row={row}
                             rowIndex={index}
@@ -192,7 +195,7 @@ class Game extends Component {
 
 Game.propTypes = {
     mode: PropTypes.number,
-    field: PropTypes.array,
+    field: PropTypes.instanceOf(Field),
     onDirectionChange: PropTypes.func.isRequired,
     onMove: PropTypes.func.isRequired,
     onStartGame: PropTypes.func.isRequired
