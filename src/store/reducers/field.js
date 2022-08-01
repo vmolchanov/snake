@@ -1,5 +1,6 @@
-import EDirection from '../enums/direction';
-import Field from '../utils/field/field';
+import EDirection from '../../utils/enums/direction';
+import Field from '../../utils/field/field';
+import {FIELD_CHANGE_DIRECTION, FIELD_MOVE, FIELD_RESET} from '@constants';
 
 const SIZE = 10;
 
@@ -25,18 +26,18 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'MOVE':
+        case FIELD_MOVE:
             return {
                 ...state,
                 field: state.field.move(state.direction).clone()
             };
-        case 'CHANGE_DIRECTION':
+        case FIELD_CHANGE_DIRECTION:
             const direction = action.payload;
             return {
                 ...state,
                 direction: getDirection(state.direction, direction)
             };
-        case 'RESET':
+        case FIELD_RESET:
             return {
                 field: state.field.create().clone(),
                 direction: EDirection.RIGHT
@@ -44,27 +45,6 @@ const reducer = (state = initialState, action) => {
         default:
             return state;
     }
-};
-
-export const moveSnake = () => {
-    return {
-        type: 'MOVE',
-        payload: null
-    };
-};
-
-export const changeDirection = (direction) => {
-    return {
-        type: 'CHANGE_DIRECTION',
-        payload: direction
-    };
-};
-
-export const resetGame = () => {
-    return {
-        type: 'RESET',
-        payload: null
-    };
 };
 
 export default reducer;

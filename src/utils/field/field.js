@@ -1,6 +1,6 @@
 import {random} from '../random';
 import Point from '../point';
-import EDirection from '../../enums/direction';
+import EDirection from '../enums/direction';
 
 class Field {
     constructor(size, field = null) {
@@ -9,9 +9,9 @@ class Field {
         this.EMPTY_CELL = 0;
         this.size = size;
         this._field = (field === null) ?
-            this.createEmpty() :    
+            this.createEmpty() :
             field.slice();
-            
+
     }
 
     get field() {
@@ -53,7 +53,7 @@ class Field {
 
         if (this._field[nextY][nextX] === this.FOOD_CELL) {
             this._field = this._field.map((row) =>
-                row.map((cell) => 
+                row.map((cell) =>
                     cell > 0 ? ++cell : cell
                 )
             );
@@ -115,7 +115,7 @@ class Field {
                 new Point(from.x, from.y + 1),
                 new Point(from.x - 1, from.y)
             ];
-    
+
             for (let i = 0; i < coords.length; i++) {
                 const {x, y} = coords[i];
                 const isInField = (x >= 0 && x < this.size && y >= 0 && y < this.size);
@@ -123,17 +123,17 @@ class Field {
                     return coords[i];
                 }
             }
-    
+
             return null;
         }
-    
+
         for (let i = 0; i < this._field.length; i++) {
             const j = this._field[i].indexOf(part);
             if (j !== -1) {
                 return new Point(j, i);
             }
         }
-    
+
         return null;
     }
 }

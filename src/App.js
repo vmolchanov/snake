@@ -1,20 +1,20 @@
-import './App.css';
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import React from 'react';
-import Welcome from './components/Welcome';
-import Mode from './components/Mode';
-import Game from './components/Game';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
+import './App.css';
+
+import {routes} from './router';
 
 const App = () => {
+    const routeNodes = routes.map((route, index) => {
+        return <Route exact={route.exact} component={route.component} path={route.path} key={index} />
+    });
     return (
         <div className="App">
             <div className="App__content">
                 <Router>
                     <Switch>
-                        <Route exact path="/" component={Welcome} />
-                        <Route path="/mode" component={Mode} />
-                        <Route path="/game" component={Game} />
+                        {routeNodes}
                     </Switch>
                 </Router>
             </div>

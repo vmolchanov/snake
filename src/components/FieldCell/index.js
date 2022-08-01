@@ -1,14 +1,11 @@
 import React from 'react';
-import Point from '../../utils/point';
-import Size from '../../utils/size';
+
+import Point from '@utils/point';
+import Size from '@utils/size';
 import PropTypes from 'prop-types';
 
-function FieldCell(props) {
-    const {
-        style,
-        coord,
-        size
-    } = props;
+const FieldCell = (props) => {
+    const {style, coord, size} = props;
 
     return (
         <rect
